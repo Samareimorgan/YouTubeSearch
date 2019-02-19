@@ -1,5 +1,5 @@
 import axios from "axios";
-const apiKey = "AIzaSyB8MPYmpMIAAnuoUtJ-BGn9oXrhYqUX6UA";
+const apiKey = ;
 
 export default {
     searchVideos: function(term) {
