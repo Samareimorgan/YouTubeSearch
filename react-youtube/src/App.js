@@ -1,10 +1,28 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from "reactstrap";
+import API from "./utils/API";
 import SearchBar from "./components/SearchBar";
 import VideoDetail from "./components/VideoDetail";
 import { VideoList, VideoListItem } from "./components/VideoList";
 
+
 class App extends Component {
+
+  state = {
+    videos: [],
+    selectedVideo: null
+  }
+    
+    componentDidMount() {
+      this.searchYouTube("Baby");
+    }
+
+    searchYouTube = term => {
+      API.searchVideos(term)
+      .then(res => this.setState({videos: res.data.items, selectedVideo: res.data.items[0]}))
+      .catch(err => console.log(err));
+    }
+
   render() {
     return (
       <Container>
@@ -16,10 +34,11 @@ class App extends Component {
         </Row>
         <Row>
           <Col md="9">
-            <VideoDetail />
+            <VideoDetail video = {this.state.selectedVideo}/>
           </Col>
           <Col md="3">
-            <VideoList> 
+            <VideoList > 
+              <VideoListItem />
               <VideoListItem />
             </VideoList>
           </Col>
